@@ -1,0 +1,8 @@
+p, user, /v1/createuser, POST
+p, user, /v1/getuser, GET
+p, user, /v1/users, GET
+p, user, /v1/updateuser, PUT
+
+p, admin, /v1/deleteuser, DELETE
+
+g, admin, user

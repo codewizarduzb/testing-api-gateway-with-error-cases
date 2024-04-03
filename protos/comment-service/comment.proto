@@ -1,0 +1,108 @@
+syntax = "proto3";
+
+package comment;
+
+option go_package = "/comment";
+
+service CommentService {
+    rpc GetAllUsers(GetAllCommentsRequest) returns (GetAllCommentsResponse);
+    rpc GetPostById(GetPostByIdRequest) returns (GetPostByIdResponse);
+    rpc GetUserById(GetUserByIdRequest) returns (GetUserByIdResponse);
+
+    rpc CreateComment(Comment) returns (Comment);
+    rpc UpdateComment(Comment) returns (Comment);
+    rpc DeleteComment(IdRequst) returns (DeleteResponse);
+    rpc GetComment(IdRequst) returns (Comment);
+    rpc GetAllComment(GetAllCommentsRequest) returns (GetAllCommentResponse);
+
+    rpc GetCommentsByPostId(IdRequst) returns (GetAllCommentResponse);
+    rpc GetCommentsByOwnerId(IdRequst) returns (GetAllCommentResponse);
+    rpc GetCommentById(IdRequst) returns (Comment);
+}
+
+message DeleteResponse {}
+
+message GetAllCommentResponse {
+    repeated Comment all_comments = 1;
+}
+
+message IdRequst {
+    string id = 1;
+}
+
+message GetAllCommentsRequest {
+    int64 page = 1;
+    int64 limit = 2;
+}
+
+message GetAllCommentsResponse {
+    repeated Users all_users = 1;
+}
+
+message GetPostByIdRequest {
+    string post_id = 1;
+}
+
+message GetPostByIdResponse {
+    Post post = 1;
+    User post_writer = 2;
+    repeated Comment comments = 3;
+}
+
+message GetUserByIdRequest {
+    string owner_id = 1;
+}
+
+message GetUserByIdResponse {
+    User owner_info = 1;
+    repeated Posts all_posts = 2;
+}
+
+message Posts {
+    string id = 1;
+    string title = 2;
+    string image_url = 3;
+    string owner_id = 4;
+    repeated Comments all_comments = 5;
+}
+
+message Comments {
+    string id = 1;
+    string content = 2;
+    string createdAt = 3;
+    string updatedAt = 4;
+    string deletedAt = 5;
+    string user_id = 6;
+    string post_id = 7;
+    User comment_writer = 8;
+}
+
+message User {
+    string id = 1;
+    string name = 2;
+    string last_name = 3;
+}
+
+message Users {
+    string id = 1;
+    string name = 2;
+    string last_name = 3;
+    repeated Posts all_posts = 4;
+}
+
+message Comment {
+    string id = 1;
+    string content = 2;
+    string createdAt = 3;
+    string updatedAt = 4;
+    string deletedAt = 5;
+    string post_id = 6;
+    string owner_id = 7;
+}
+
+message Post {
+    string id = 1;
+    string title = 2;
+    string image_url = 3;
+    string owner_id = 4;
+}
